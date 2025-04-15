@@ -6,12 +6,15 @@ const morgan = require("morgan");
 const rateLimit = require("express-rate-limit");
 
 const app = express();
+const authRoutes = require("./routes/auth.routes");
 
 // Middleware
 app.use(cors());
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 100 }));
+
+app.use("/api/auth", authRoutes);
 
 // Connect DB and start server
 mongoose.connect(process.env.MONGO_URI).then(() => {
