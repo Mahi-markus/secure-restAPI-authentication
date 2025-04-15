@@ -4,6 +4,8 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const morgan = require("morgan");
 const rateLimit = require("express-rate-limit");
+const passport = require("passport");
+require("./config/passport")(passport); // JWT strategy setup
 
 const app = express();
 const authRoutes = require("./routes/auth.routes");
@@ -13,6 +15,7 @@ app.use(cors());
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 100 }));
+app.use(passport.initialize());
 
 app.use("/api/auth", authRoutes);
 
