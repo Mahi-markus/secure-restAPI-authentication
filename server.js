@@ -3,10 +3,10 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const morgan = require("morgan");
-const rateLimit = require("express-rate-limit");
 const passport = require("passport");
-//require("./config/passport")(passport); // JWT strategy setup
+require("./config/passport")(passport); // JWT strategy setup
 const paymentRoutes = require("./routes/payment.routes");
+const { auth_limiter, payment_limiter } = require("./utils/rate_limiter");
 
 const app = express();
 const authRoutes = require("./routes/auth.routes");
@@ -15,16 +15,16 @@ const authRoutes = require("./routes/auth.routes");
 app.use(cors());
 app.use(morgan("dev"));
 app.use(express.json());
-app.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 100 }));
+
 const errorHandler = require("./middlewares/error.middleware");
 
-//app.use(passport.initialize());
+app.use(passport.initialize());
 
-app.use("/api/auth", authRoutes);
-app.use("/payments", paymentRoutes);
+app.use("/api/auth", auth_limiter, authRoutes);
+app.use("/payments", payment_limiter, paymentRoutes);
 
 // all routes above this
-app.use(errorHandler); // <- always last
+app.use(errorHandler); // Error handling middleware
 
 // Connect DB and start server
 mongoose.connect(process.env.MONGO_URI).then(() => {

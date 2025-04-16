@@ -1,5 +1,6 @@
 // middlewares/auth.validation.js
 const { body } = require("express-validator");
+const User = require("../models/user.model"); // Assuming your User model is in models/User.js
 
 const register_valid = [
   body("email")
@@ -7,7 +8,15 @@ const register_valid = [
     .withMessage("Email is required") // Check if email exists first
     .bail()
     .isEmail()
-    .withMessage("Invalid email"), // Check if it's a valid email if it exists
+    .withMessage("Invalid email") // Check if it's a valid email if it exists
+    .bail()
+    .custom(async (email) => {
+      const user = await User.findOne({ email });
+      if (user) {
+        throw new Error("User already exists");
+      }
+      return true;
+    }),
   body("password")
     .exists({ checkFalsy: true })
     .withMessage("Password is required") // Check if password exists first

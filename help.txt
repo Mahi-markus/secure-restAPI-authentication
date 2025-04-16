@@ -1,0 +1,8 @@
+>
+docker exec -it auth-mongo mongosh
+
+ show dbs
+> use secure_api
+> show collections
+> db.users.find().pretty()
+db.transactions.find().pretty()
