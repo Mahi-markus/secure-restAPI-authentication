@@ -5,7 +5,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 const rateLimit = require("express-rate-limit");
 const passport = require("passport");
-require("./config/passport")(passport); // JWT strategy setup
+//require("./config/passport")(passport); // JWT strategy setup
 const paymentRoutes = require("./routes/payment.routes");
 
 const app = express();
@@ -16,10 +16,15 @@ app.use(cors());
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 100 }));
-app.use(passport.initialize());
+const errorHandler = require("./middlewares/error.middleware");
+
+//app.use(passport.initialize());
 
 app.use("/api/auth", authRoutes);
 app.use("/payments", paymentRoutes);
+
+// all routes above this
+app.use(errorHandler); // <- always last
 
 // Connect DB and start server
 mongoose.connect(process.env.MONGO_URI).then(() => {
