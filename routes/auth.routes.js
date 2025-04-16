@@ -3,6 +3,7 @@ const {
   register,
   login,
   getProfile,
+  refresh,
 } = require("../controllers/auth.controller");
 const router = express.Router();
 const passport = require("passport");
@@ -20,5 +21,7 @@ router.get(
   passport.authenticate("jwt", { session: false }),
   async_handler(getProfile)
 );
+
+router.post("/refresh", refresh);
 
 module.exports = router;
