@@ -20,7 +20,7 @@ const errorHandler = require("./middlewares/error.middleware");
 
 app.use(passport.initialize());
 
-app.use("/api/auth", auth_limiter, authRoutes);
+app.use("/auth", auth_limiter, authRoutes);
 app.use("/payments", payment_limiter, paymentRoutes);
 
 // all routes above this

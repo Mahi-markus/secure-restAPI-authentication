@@ -6,3 +6,7 @@ docker exec -it auth-mongo mongosh
 > show collections
 > db.users.find().pretty()
 db.transactions.find().pretty()
+
+
+npm test
+npm run test:coverage

@@ -27,7 +27,11 @@ exports.login = async (req, res) => {
   const { email, password } = req.body;
 
   const user = await User.findOne({ email });
-  if (!user || !(await user.comparePassword(password))) {
+  if (!user) {
+    return res.status(404).json({ message: "User not found" }); // Handle 404 for user not found
+  }
+
+  if (!(await user.comparePassword(password))) {
     throw new CustomError("Invalid credentials", 401);
   }
 
@@ -77,5 +81,9 @@ exports.refresh = (req, res) => {
 exports.refreshTokens = refreshTokens;
 
 exports.getProfile = (req, res) => {
+  if (!req.user) {
+    return res.status(404).json({ message: "User profile not found" }); // Handle 404 for missing user profile
+  }
+
   res.json({ user: req.user });
 };

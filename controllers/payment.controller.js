@@ -1,7 +1,6 @@
 const stripe = require("stripe")(process.env.STRIPE_SECRET);
 const Transaction = require("../models/transaction.model");
 
-console.log("Stripe Key:", process.env.STRIPE_SECRET);
 exports.checkout = async (req, res) => {
   const { amount, currency } = req.body;
   try {
