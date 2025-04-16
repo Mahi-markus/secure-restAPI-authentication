@@ -6,6 +6,7 @@ const morgan = require("morgan");
 const rateLimit = require("express-rate-limit");
 const passport = require("passport");
 require("./config/passport")(passport); // JWT strategy setup
+const paymentRoutes = require("./routes/payment.routes");
 
 const app = express();
 const authRoutes = require("./routes/auth.routes");
@@ -18,6 +19,7 @@ app.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 100 }));
 app.use(passport.initialize());
 
 app.use("/api/auth", authRoutes);
+app.use("/payments", paymentRoutes);
 
 // Connect DB and start server
 mongoose.connect(process.env.MONGO_URI).then(() => {
@@ -30,5 +32,5 @@ const db = mongoose.connection;
 
 db.on("error", console.error.bind(console, " MongoDB connection error:"));
 db.once("open", () => {
-  console.log("✅ Connected to MongoDB successfully!");
+  console.log(" Connected to MongoDB successfully!");
 });
