@@ -138,4 +138,4 @@ npm run test:coverage
 ```
 
 **_stripe here_**
-![alt text](stripe.PNG)
+![Stripe Image](./stripe.PNG)
