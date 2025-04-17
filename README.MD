@@ -136,3 +136,6 @@ db.transactions.find().pretty()
 npm test
 npm run test:coverage
 ```
+
+**_stripe here_**
+![alt text](stripe.PNG)
