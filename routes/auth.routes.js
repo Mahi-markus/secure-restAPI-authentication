@@ -16,7 +16,7 @@ router.post("/register", register_valid, validate, async_handler(register));
 router.post("/login", login_valid, validate, async_handler(login));
 // GET /api/profile - Protected route
 router.get(
-  "/profile",
+  "/me",
   passport.authenticate("jwt", { session: false }),
   async_handler(getProfile)
 );
