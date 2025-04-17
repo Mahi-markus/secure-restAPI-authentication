@@ -129,3 +129,10 @@ db.users.find().pretty()
 db.transactions.find().pretty()
 
 ```
+
+**\*To run the unit test use the below command**
+
+```bash
+npm test
+npm run test:coverage
+```

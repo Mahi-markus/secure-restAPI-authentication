@@ -19,12 +19,11 @@ app.use(express.json());
 const errorHandler = require("./middlewares/error.middleware");
 
 app.use(passport.initialize());
-
 app.use("/auth", auth_limiter, authRoutes);
 app.use("/payments", payment_limiter, paymentRoutes);
 
 // all routes above this
-app.use(errorHandler); // Error handling middleware
+app.use(errorHandler); // Global Error handling middleware
 
 // Connect DB and start server
 mongoose.connect(process.env.MONGO_URI).then(() => {
