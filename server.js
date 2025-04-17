@@ -1,5 +1,5 @@
-require("dotenv").config();
 const express = require("express");
+require("dotenv").config();
 const mongoose = require("mongoose");
 const cors = require("cors");
 const morgan = require("morgan");
@@ -7,6 +7,7 @@ const passport = require("passport");
 require("./config/passport")(passport); // JWT strategy setup
 const paymentRoutes = require("./routes/payment.routes");
 const { auth_limiter, payment_limiter } = require("./utils/rate_limiter");
+const errorHandler = require("./middlewares/error.middleware");
 
 const app = express();
 const authRoutes = require("./routes/auth.routes");
@@ -15,8 +16,6 @@ const authRoutes = require("./routes/auth.routes");
 app.use(cors());
 app.use(morgan("dev"));
 app.use(express.json());
-
-const errorHandler = require("./middlewares/error.middleware");
 
 app.use(passport.initialize());
 app.use("/auth", auth_limiter, authRoutes);
@@ -27,7 +26,7 @@ app.use((req, res, next) => {
   const error = new Error("Route Not Found");
   error.statusCode = 404;
   next(error);
-})
+});
 
 // all routes above this
 app.use(errorHandler); // Global Error handling middleware
