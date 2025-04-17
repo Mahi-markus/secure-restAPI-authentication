@@ -121,7 +121,7 @@ docker compose up
 **_TO see the tables and data in the table use the below command_**
 
 ```bash
-docker exec -it auth-mongo mongosh
+docker exec -it auth-mongo mongosh   or mongosh "if you are having trouble to see the table or data"
 show dbs
 use secure_api
 show collections
