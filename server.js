@@ -22,6 +22,13 @@ app.use(passport.initialize());
 app.use("/auth", auth_limiter, authRoutes);
 app.use("/payments", payment_limiter, paymentRoutes);
 
+// Handle unknown routes (404)
+app.use((req, res, next) => {
+  const error = new Error("Route Not Found");
+  error.statusCode = 404;
+  next(error);
+})
+
 // all routes above this
 app.use(errorHandler); // Global Error handling middleware
 
