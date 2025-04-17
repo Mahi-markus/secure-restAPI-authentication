@@ -1,5 +1,3 @@
-### Secure REST API for User Authentication
-
 # 🔐 Secure Auth & Payment REST API
 
 A secure and scalable REST API built using **Node.js**, **Express.js**, **Passport.js**, **JWT**, and **Stripe**, featuring user authentication, role-based access control, and payment processing.
@@ -26,9 +24,9 @@ A secure and scalable REST API built using **Node.js**, **Express.js**, **Passpo
 
 - **Backend Framework**: Express.js
 - **Authentication**: Passport.js, JWT, Bcrypt.js
-- **Database**: MongoDB (with Mongoose) or PostgreSQL (with Prisma)
+- **Database**: MongoDB (with Mongoose)
 - **Payment Gateway**: Stripe
-- **Security**: Helmet.js, CORS, Rate-limiter
+- **Security**: Rate-limiter
 - **Testing**: Jest / Supertest
 - **Environment**: Docker (for database)
 
@@ -48,12 +46,9 @@ cd secure-restAPI-authentication
 npm install
 ```
 
-# Create environment file
+# Create .env file and In the env file below thing need to be added:
 
 ```bash
- .env
-- In the env file below thing need to be added:
-
 PORT=5000
 MONGO_URI=mongodb://localhost:27017/secure_api
 JWT_SECRET=your_jwt_secret
@@ -62,7 +57,7 @@ REFRESH_TOKEN_SECRET=my_refresh_token_secret
 
 ```
 
-# Start the server
+# Opend a terminal and Start the server
 
 ```bash
 npm start
@@ -86,7 +81,7 @@ docker compose up
 - Post   http://localhost:5000/auth/refresh
 ```
 
-- ***For Register:Example body is below**
+- **\*For Register:Example body is below**
 
 ```bash
 {
@@ -98,9 +93,9 @@ docker compose up
 
 ```
 
-- ***For login:Example body is below**
+- **\*For login:Example body is below**
 
-``` bash
+```bash
 
 {
   "email": "mahi1@gmail.com",
@@ -109,7 +104,7 @@ docker compose up
 
 ```
 
-- ***For checkout:Example body is below after putting token in the "bearer token"**
+- **\*For checkout:Example body is below after putting token in the "bearer token"**
 
 ```bash
 
@@ -123,7 +118,7 @@ docker compose up
 
 ```
 
-***TO see the tables and data in the table use the below command***
+**_TO see the tables and data in the table use the below command_**
 
 ```bash
 docker exec -it auth-mongo mongosh
