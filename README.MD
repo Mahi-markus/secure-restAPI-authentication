@@ -137,5 +137,6 @@ npm test
 npm run test:coverage
 ```
 
-**_stripe here_**
+### stripe image###
+
 ![Stripe Image](./stripe.PNG)
